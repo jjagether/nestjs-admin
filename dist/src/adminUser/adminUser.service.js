@@ -46,7 +46,7 @@ let AdminUserService = class AdminUserService {
         this.connection = connection;
         this.entityManager = entityManager;
         this.OBJECTID = 'admin_user_service';
-        if (connection.subscribers.find(o => o.OBJECTID === this.OBJECTID) === undefined)
+        if (connection.subscribers.find(o => { var _a; return ((_a = o) === null || _a === void 0 ? void 0 : _a.OBJECTID) === this.OBJECTID; }) === undefined)
             connection.subscribers.push(this);
     }
     listenTo() {
