@@ -9,11 +9,13 @@ import { AdminUserValidationException } from './exceptions/adminUserValidation.e
 
 @Injectable()
 export class AdminUserService implements EntitySubscriberInterface<AdminUser> {
+  OBJECTID = 'admin_user_service';
   constructor(
     @InjectConnection() readonly connection: Connection,
     private readonly entityManager: EntityManager,
   ) {
-    connection.subscribers.push(this);
+    if (connection.subscribers.find(o => o.OBJECTID === this.OBJECTID) === undefined)
+      connection.subscribers.push(this);
   }
 
   listenTo() {
