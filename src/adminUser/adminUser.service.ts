@@ -1,20 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/typeorm';
 import { hashSync as bcryptHashSync, compareSync } from 'bcryptjs';
-import { EntitySubscriberInterface, InsertEvent, UpdateEvent, EntityManager } from 'typeorm';
+import { EntitySubscriberInterface, InsertEvent, UpdateEvent, EntityManager, Admin } from 'typeorm';
 import { Connection } from '../utils/typeormProxy';
 import AdminUser from './adminUser.entity';
 import { DuplicateUsernameException } from './exceptions/userAdmin.exception';
 import { AdminUserValidationException } from './exceptions/adminUserValidation.exception';
 
+interface IAdminUserService<T> extends EntitySubscriberInterface<T> {
+  OBJECTID: string;
+}
+
 @Injectable()
-export class AdminUserService implements EntitySubscriberInterface<AdminUser> {
+export class AdminUserService implements IAdminUserService<AdminUser> {
   OBJECTID = 'admin_user_service';
   constructor(
     @InjectConnection() readonly connection: Connection,
     private readonly entityManager: EntityManager,
   ) {
-    if (connection.subscribers.find(o => o.OBJECTID === this.OBJECTID) === undefined)
+    if (connection.subscribers.find(o => (o as any)?.OBJECTID === this.OBJECTID) === undefined)
       connection.subscribers.push(this);
   }
 
