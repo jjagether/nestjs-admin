@@ -6,7 +6,7 @@ import AdminUser from '../adminUser/adminUser.entity';
 import { createAndStartTestApp, TestApplication } from './utils/testApp';
 import { AdminAuthModuleFactory } from '../adminAuth/adminAuth.module';
 
-const mockCredentialValidator = jest.fn().mockImplementation((username, password) => {
+const mockCredentialValidator = jest.fn().mockImplementation((email, password) => {
   return false;
 });
 
@@ -59,7 +59,7 @@ describe('custom authentication', () => {
     expect(res.status).toBe(200);
 
     document.documentElement.innerHTML = res.text;
-    expect(document.querySelector('input[name="username"]')).toBeTruthy();
+    expect(document.querySelector('input[name="email"]')).toBeTruthy();
     expect(document.querySelector('input[name="password"][type="password"]')).toBeTruthy();
   });
 
@@ -69,15 +69,15 @@ describe('custom authentication', () => {
     const entityManager = app.get(EntityManager);
 
     const password = 'adminpassword';
-    const adminData = createTestAdminUser({ password, username: 'admin' });
+    const adminData = createTestAdminUser({ password, email: 'admin' });
     const admin = await entityManager.save(adminData);
     expect(await entityManager.findOneOrFail(AdminUser, admin.id)).toBeDefined();
 
     const res = await request(server)
       .post(`/admin/login`)
-      .send({ username: adminData.username, password });
+      .send({ email: adminData.email, password });
     expect(mockCredentialValidator).toHaveBeenCalledTimes(1);
-    expect(mockCredentialValidator).toHaveBeenCalledWith(adminData.username, password);
+    expect(mockCredentialValidator).toHaveBeenCalledWith(adminData.email, password);
     expect(mockCredentialValidator).toHaveReturnedWith(true);
     expect(res.status).toBe(302);
     expect(res.header.location).toBe(`/admin`);
@@ -91,15 +91,15 @@ describe('custom authentication', () => {
     const entityManager = app.get(EntityManager);
 
     const password = 'adminpassword';
-    const adminData = createTestAdminUser({ password, username: 'notadmin' });
+    const adminData = createTestAdminUser({ password, email: 'notadmin' });
     const admin = await entityManager.save(adminData);
     expect(await entityManager.findOneOrFail(AdminUser, admin.id)).toBeDefined();
 
     const res = await request(server)
       .post(`/admin/login`)
-      .send({ username: adminData.username, password });
+      .send({ email: adminData.email, password });
     expect(mockCredentialValidator).toHaveBeenCalledTimes(1);
-    expect(mockCredentialValidator).toHaveBeenCalledWith(adminData.username, password);
+    expect(mockCredentialValidator).toHaveBeenCalledWith(adminData.email, password);
     expect(mockCredentialValidator).toHaveReturnedWith(false);
     expect(res.status).toBe(302);
     expect(res.header.location).toBe(`/admin/login`);

@@ -4,7 +4,7 @@ import { hashSync as bcryptHashSync, compareSync } from 'bcryptjs';
 import { EntitySubscriberInterface, InsertEvent, UpdateEvent, EntityManager, Admin } from 'typeorm';
 import { Connection } from '../utils/typeormProxy';
 import AdminUser from './adminUser.entity';
-import { DuplicateUsernameException } from './exceptions/userAdmin.exception';
+import { DuplicateEmailException } from './exceptions/userAdmin.exception';
 import { AdminUserValidationException } from './exceptions/adminUserValidation.exception';
 
 interface IAdminUserService<T> extends EntitySubscriberInterface<T> {
@@ -53,28 +53,28 @@ export class AdminUserService implements IAdminUserService<AdminUser> {
     }
   }
 
-  async create(username: string, password: string) {
-    if (await this.entityManager.findOne(AdminUser, { username })) {
-      throw new DuplicateUsernameException(username);
+  async create(email: string, password: string) {
+    if (await this.entityManager.findOne(AdminUser, { email })) {
+      throw new DuplicateEmailException(email);
     }
 
-    if (!username || !password) {
+    if (!email || !password) {
       throw new AdminUserValidationException();
     }
 
     const admin = new AdminUser();
-    admin.username = username;
+    admin.email = email;
     admin.password = password;
 
     await this.entityManager.save(admin);
   }
 
-  async findOne(username: string): Promise<AdminUser | undefined> {
-    return await this.entityManager.findOne(AdminUser, { where: { username } });
+  async findOne(email: string): Promise<AdminUser | undefined> {
+    return await this.entityManager.findOne(AdminUser, { where: { email } });
   }
 
-  async validateAdminCredentials(username: string, password: string) {
-    const adminUser: AdminUser | null = await this.findOne(username);
+  async validateAdminCredentials(email: string, password: string) {
+    const adminUser: AdminUser | null = await this.findOne(email);
     if (adminUser && this.comparePassword(adminUser, password)) {
       // @debt quality "miker: 1/ is this destructure necessary? was copied from blog post
       // @debt quality "miker: 2/ https://dev.to/nestjs/authentication-and-sessions-for-mvc-apps-with-nestjs-55a4"

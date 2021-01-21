@@ -13,7 +13,7 @@ const defaultCoreModule = AdminCoreModuleFactory.createAdminCoreModule({});
  * otherwise.
  */
 export type CredentialValidator = (
-  username: string,
+  email: string,
   password: string,
 ) => object | null | Promise<object | null>;
 

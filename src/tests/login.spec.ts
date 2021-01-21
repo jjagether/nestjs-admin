@@ -50,7 +50,7 @@ describe('login', () => {
     expect(res.status).toBe(200);
 
     document.documentElement.innerHTML = res.text;
-    expect(document.querySelector('input[name="username"]')).toBeTruthy();
+    expect(document.querySelector('input[name="email"]')).toBeTruthy();
     expect(document.querySelector('input[name="password"][type="password"]')).toBeTruthy();
   });
 
@@ -71,7 +71,7 @@ describe('login', () => {
 
     const res = await request(server)
       .post(`/admin/login`)
-      .send({ username: adminData.username, password });
+      .send({ email: adminData.email, password });
     expect(res.status).toBe(302);
     expect(res.header.location).toBe(`/admin`);
   });

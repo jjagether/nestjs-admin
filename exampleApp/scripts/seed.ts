@@ -8,7 +8,7 @@ import { Agency } from '../src/user/agency.entity';
 
 function createAdmin() {
   const user = new AdminUserEntity();
-  user.username = 'admin';
+  user.email = 'admin';
   user.password = 'admin';
   return user;
 }

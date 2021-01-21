@@ -11,13 +11,13 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     @Inject(injectionTokens.ADMIN_AUTH_CREDENTIAL_VALIDATOR)
     private readonly credentialValidator: CredentialValidator,
   ) {
-    super();
+    super({ usernameField: 'email' });
   }
 
-  async validate(username: string, password: string) {
-    const adminUser = await this.credentialValidator(username, password);
+  async validate(email: string, password: string) {
+    const adminUser = await this.credentialValidator(email, password);
     if (!adminUser) {
-      throw new InvalidCredentials(username);
+      throw new InvalidCredentials(email);
     }
     return adminUser;
   }

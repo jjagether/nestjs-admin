@@ -6,15 +6,15 @@ export async function createAdminUser(app: INestApplicationContext) {
   const adminUserService = app.get(AdminUserService);
 
   type Answers = {
-    username: string;
+    email: string;
     password: string;
   };
 
-  const { username, password }: Answers = await prompt([
+  const { email, password }: Answers = await prompt([
     {
       type: 'input',
-      name: 'username',
-      message: 'Username:',
+      name: 'email',
+      message: 'Email:',
     },
     {
       type: 'password',
@@ -23,5 +23,5 @@ export async function createAdminUser(app: INestApplicationContext) {
     },
   ]);
 
-  await adminUserService.create(username, password);
+  await adminUserService.create(email, password);
 }

@@ -6,14 +6,14 @@ class AdminUser {
   id: string;
 
   @Column({ length: 50, unique: true, nullable: false })
-  username: string;
+  email: string;
 
   @Column({ length: 128, nullable: false })
   password: string;
 
   toString() {
-    if (this.username) {
-      return `${this.id} - ${this.username}`;
+    if (this.email) {
+      return `${this.id} - ${this.email}`;
     }
     return this.id;
   }
