@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DuplicateUsernameException = void 0;
-class DuplicateUsernameException extends Error {
-    constructor(username) {
-        super(`There is already an AdminUser with this username: ${username}`);
+exports.DuplicateEmailException = void 0;
+class DuplicateEmailException extends Error {
+    constructor(email) {
+        super(`There is already an AdminUser with this email: ${email}`);
     }
 }
-exports.DuplicateUsernameException = DuplicateUsernameException;
+exports.DuplicateEmailException = DuplicateEmailException;
 //# sourceMappingURL=userAdmin.exception.js.map

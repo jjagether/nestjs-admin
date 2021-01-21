@@ -1,6 +1,6 @@
 import { injectionTokens } from '../tokens';
 import { ModuleMetadata } from '@nestjs/common/interfaces';
-export declare type CredentialValidator = (username: string, password: string) => object | null | Promise<object | null>;
+export declare type CredentialValidator = (email: string, password: string) => object | null | Promise<object | null>;
 export interface CredentialValidatorProvider {
     useFactory: (dep: any) => CredentialValidator;
     inject?: any[];

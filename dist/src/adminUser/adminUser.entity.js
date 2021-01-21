@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeormProxy_1 = require("../utils/typeormProxy");
 let AdminUser = class AdminUser {
     toString() {
-        if (this.username) {
-            return `${this.id} - ${this.username}`;
+        if (this.email) {
+            return `${this.id} - ${this.email}`;
         }
         return this.id;
     }
@@ -25,7 +25,7 @@ __decorate([
 __decorate([
     typeormProxy_1.Column({ length: 50, unique: true, nullable: false }),
     __metadata("design:type", String)
-], AdminUser.prototype, "username", void 0);
+], AdminUser.prototype, "email", void 0);
 __decorate([
     typeormProxy_1.Column({ length: 128, nullable: false }),
     __metadata("design:type", String)

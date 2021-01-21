@@ -15,11 +15,11 @@ const adminUser_service_1 = require("../src/adminUser/adminUser.service");
 function createAdminUser(app) {
     return __awaiter(this, void 0, void 0, function* () {
         const adminUserService = app.get(adminUser_service_1.AdminUserService);
-        const { username, password } = yield inquirer_1.prompt([
+        const { email, password } = yield inquirer_1.prompt([
             {
                 type: 'input',
-                name: 'username',
-                message: 'Username:',
+                name: 'email',
+                message: 'Email:',
             },
             {
                 type: 'password',
@@ -27,7 +27,7 @@ function createAdminUser(app) {
                 message: 'Password:',
             },
         ]);
-        yield adminUserService.create(username, password);
+        yield adminUserService.create(email, password);
     });
 }
 exports.createAdminUser = createAdminUser;

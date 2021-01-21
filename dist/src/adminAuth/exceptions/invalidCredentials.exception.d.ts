@@ -1,6 +1,6 @@
 import { HttpException } from '@nestjs/common';
 declare class InvalidCredentials extends HttpException {
-    readonly username: string;
-    constructor(username: string);
+    readonly email: string;
+    constructor(email: string);
 }
 export default InvalidCredentials;

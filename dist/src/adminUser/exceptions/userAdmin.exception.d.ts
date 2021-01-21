@@ -1,3 +1,3 @@
-export declare class DuplicateUsernameException extends Error {
-    constructor(username: string);
+export declare class DuplicateEmailException extends Error {
+    constructor(email: string);
 }

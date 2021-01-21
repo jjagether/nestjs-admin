@@ -72,28 +72,28 @@ let AdminUserService = class AdminUserService {
             event.entity.password = event.databaseEntity.password;
         }
     }
-    create(username, password) {
+    create(email, password) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (yield this.entityManager.findOne(adminUser_entity_1.default, { username })) {
-                throw new userAdmin_exception_1.DuplicateUsernameException(username);
+            if (yield this.entityManager.findOne(adminUser_entity_1.default, { email })) {
+                throw new userAdmin_exception_1.DuplicateEmailException(email);
             }
-            if (!username || !password) {
+            if (!email || !password) {
                 throw new adminUserValidation_exception_1.AdminUserValidationException();
             }
             const admin = new adminUser_entity_1.default();
-            admin.username = username;
+            admin.email = email;
             admin.password = password;
             yield this.entityManager.save(admin);
         });
     }
-    findOne(username) {
+    findOne(email) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.entityManager.findOne(adminUser_entity_1.default, { where: { username } });
+            return yield this.entityManager.findOne(adminUser_entity_1.default, { where: { email } });
         });
     }
-    validateAdminCredentials(username, password) {
+    validateAdminCredentials(email, password) {
         return __awaiter(this, void 0, void 0, function* () {
-            const adminUser = yield this.findOne(username);
+            const adminUser = yield this.findOne(email);
             if (adminUser && this.comparePassword(adminUser, password)) {
                 const { password: pass } = adminUser, result = __rest(adminUser, ["password"]);
                 return result;

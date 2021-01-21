@@ -29,14 +29,14 @@ const invalidCredentials_exception_1 = require("./exceptions/invalidCredentials.
 const tokens_1 = require("../tokens");
 let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(passport_local_1.Strategy) {
     constructor(credentialValidator) {
-        super();
+        super({ usernameField: 'email' });
         this.credentialValidator = credentialValidator;
     }
-    validate(username, password) {
+    validate(email, password) {
         return __awaiter(this, void 0, void 0, function* () {
-            const adminUser = yield this.credentialValidator(username, password);
+            const adminUser = yield this.credentialValidator(email, password);
             if (!adminUser) {
-                throw new invalidCredentials_exception_1.default(username);
+                throw new invalidCredentials_exception_1.default(email);
             }
             return adminUser;
         });

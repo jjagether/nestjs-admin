@@ -14,11 +14,11 @@ export declare class AdminUserService implements IAdminUserService<AdminUser> {
     comparePassword(adminUser: AdminUser, password: string): boolean;
     beforeInsert(event: InsertEvent<AdminUser>): void;
     beforeUpdate(event: UpdateEvent<AdminUser>): void;
-    create(username: string, password: string): Promise<void>;
-    findOne(username: string): Promise<AdminUser | undefined>;
-    validateAdminCredentials(username: string, password: string): Promise<{
+    create(email: string, password: string): Promise<void>;
+    findOne(email: string): Promise<AdminUser | undefined>;
+    validateAdminCredentials(email: string, password: string): Promise<{
         id: string;
-        username: string;
+        email: string;
     }>;
 }
 export {};

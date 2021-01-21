@@ -1,6 +1,6 @@
 declare class AdminUser {
     id: string;
-    username: string;
+    email: string;
     password: string;
     toString(): string;
 }

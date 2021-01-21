@@ -16,7 +16,7 @@ let AdminFilter = class AdminFilter {
         const req = host.switchToHttp().getRequest();
         if (exception instanceof invalidCredentials_exception_1.default) {
             req.flash('loginError', 'Invalid credentials');
-            req.flash('username', exception.username);
+            req.flash('email', exception.email);
         }
         res.redirect(admin_filters_1.adminUrl('login'));
     }
