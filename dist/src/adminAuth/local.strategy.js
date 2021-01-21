@@ -27,7 +27,7 @@ const passport_1 = require("@nestjs/passport");
 const common_1 = require("@nestjs/common");
 const invalidCredentials_exception_1 = require("./exceptions/invalidCredentials.exception");
 const tokens_1 = require("../tokens");
-let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(passport_local_1.Strategy) {
+let LocalStrategy = class LocalStrategy extends passport_1.PassportStrategy(passport_local_1.Strategy, 'admin-local') {
     constructor(credentialValidator) {
         super({ usernameField: 'email' });
         this.credentialValidator = credentialValidator;

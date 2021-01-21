@@ -18,7 +18,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginGuard = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
-let LoginGuard = class LoginGuard extends passport_1.AuthGuard('local') {
+let LoginGuard = class LoginGuard extends passport_1.AuthGuard('admin-local') {
     canActivate(context) {
         const _super = Object.create(null, {
             canActivate: { get: () => super.canActivate },

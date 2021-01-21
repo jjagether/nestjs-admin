@@ -6,7 +6,7 @@ import { injectionTokens } from '../tokens';
 import { CredentialValidator } from './adminAuth.module';
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class LocalStrategy extends PassportStrategy(Strategy, 'admin-local') {
   constructor(
     @Inject(injectionTokens.ADMIN_AUTH_CREDENTIAL_VALIDATOR)
     private readonly credentialValidator: CredentialValidator,
